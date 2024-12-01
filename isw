@@ -252,7 +252,7 @@ def main() -> None:
     parser.add_argument('-m', '--fan-mode', type=str, help='Fan mode (auto/basic/advanced)')
     parser.add_argument('-c', '--cpu-fan', type=int, help='CPU fan (0..6)')
     parser.add_argument('-g', '--gpu-fan', type=int, help='GPU fan (0..6)')
-    parser.add_argument('-s', '--speed', type=int, help='Fan speed to set in % (should be used with -c or -g)')
+    parser.add_argument('-s', '--speed', type=int, help='Fan speed to set in %% (should be used with -c or -g)')
     parser.add_argument('-t', '--taillight', type=int, help='Chassis Taillight (0/1)')
     parser.add_argument('-l', '--mic-light', type=int, help='Mic Light (0/1)')
     parser.add_argument('-x', '--mux-switch', type=str, help='MUX Switch (mshybrid/discrete/integrated)')
