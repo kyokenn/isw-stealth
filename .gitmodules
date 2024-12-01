@@ -1,0 +1,3 @@
+[submodule "acpi_ec"]
+	path = acpi_ec
+	url = https://github.com/saidsay-so/acpi_ec.git
