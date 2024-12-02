@@ -165,6 +165,19 @@ class ISW:
         return self._write(self.mic_light_address, current_value)
 
     @property
+    def usb_powershare(self) -> bool | None:
+        return self._read(self.usb_powershare_address)[0] & self.usb_powershare_mask == self.usb_powershare_mask
+
+    @usb_powershare.setter
+    def usb_powershare(self, value: bool) -> None:
+        current_value = self._read(self.usb_powershare_address)[0]
+        if value:
+            current_value |= self.usb_powershare_mask
+        else:
+            current_value ^= self.usb_powershare_mask
+        return self._write(self.usb_powershare_address, current_value)
+
+    @property
     def cpu_fan_rpm(self) -> int:
         return self._read_rpm(self.realtime_cpu_fan_rpm_address)
 
@@ -210,6 +223,8 @@ class ISW:
             print(f'Chassis Taillight: {self.taillight}')
         if hasattr(self, 'mic_light_address'):
             print(f'Mic Light: {self.mic_light}')
+        if hasattr(self, 'usb_powershare_address'):
+            print(f'USB Power Share: {self.usb_powershare}')
         print()
 
         print(f'CPU Temp: {self.cpu_temp}°C')
@@ -255,6 +270,7 @@ def main() -> None:
     parser.add_argument('-s', '--speed', type=int, help='Fan speed to set in %% (should be used with -c or -g)')
     parser.add_argument('-t', '--taillight', type=int, help='Chassis Taillight (0/1)')
     parser.add_argument('-l', '--mic-light', type=int, help='Mic Light (0/1)')
+    parser.add_argument('-w', '--usb-powershare', type=int, help='USB Power Share (0/1)')
     parser.add_argument('-x', '--mux-switch', type=str, help='MUX Switch (mshybrid/discrete/integrated)')
     parser.add_argument('-f', '--config', type=str, help='Path to config file')
     args = parser.parse_args()
@@ -285,6 +301,8 @@ def main() -> None:
         isw.taillight = args.taillight
     if args.mic_light is not None:
         isw.mic_light = args.mic_light
+    if args.usb_powershare is not None:
+        isw.usb_powershare = args.usb_powershare
     if args.mux_switch is not None:
         isw.mux_switch = args.mux_switch
 
