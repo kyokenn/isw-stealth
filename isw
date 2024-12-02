@@ -95,8 +95,8 @@ class ISW:
 
     @user_profile.setter
     def user_profile(self, name: str) -> None:
-        if hasattr(self, f'profile_{profile}'):
-            value = getattr(self, f'profile_{profile}')
+        if hasattr(self, f'profile_{name}'):
+            value = getattr(self, f'profile_{name}')
             return self._write(self.profile_address, value)
 
     @property
